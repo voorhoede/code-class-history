@@ -1,0 +1,119 @@
+{% extends "views/_base/base.html" %}
+
+{% block navigation %}
+    <nav class="cc-navigation">
+        <a href="/exercise-2" class="cc-back-link">← back to exercise 2</a>
+    </nav>
+{% endblock %}
+
+{% block introduction %}
+    <h1>Exercise 2 - Answer</h1>
+
+    <p>Use history.pushState() to add every change of data to the history. Listen to the popstate event for clicks on the back or forward button of the browser. When a popstate event occurs, update the page with that content.</p>
+{% endblock %}
+
+{% block html %}
+    <section class="cc-html-playground">
+        <div class="exercise">
+            <h1>Kittens!</h1>
+
+            <ul>
+                <li><a href="/exercise-2-answer/fluffy" data-nav-list-item>Fluffy</a></li>
+                <li><a href="/exercise-2-answer/socks" data-nav-list-item>Socks</a></li>
+                <li><a href="/exercise-2-answer/whiskers" data-nav-list-item>Whiskers</a></li>
+                <li><a href="/exercise-2-answer/bob" data-nav-list-item>Bob</a></li>
+            </ul>
+
+            <img data-image src="http://placekitten.com/600/230" alt="" id="photo">
+
+            <p data-content>Pick a cat!</p>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <style type="text/css">
+        .exercise {
+            margin: 2rem auto;
+            padding: 1rem;
+            max-width: 600px;
+            background: #fff;
+        }
+
+        .exercise h1 {
+            margin: 0 0 1rem 0;
+        }
+
+        .exercise ul {
+            margin: 0 0 1rem 0;
+            padding: 0;
+        }
+
+        .exercise ul li {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
+        .exercise img {
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .exercise p {
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        const navItems = document.querySelectorAll('[data-nav-list-item]');
+        const image = document.querySelector('[data-image]');
+        const content = document.querySelector('[data-content]');
+
+        const cats = {
+            fluffy: {
+                content: 'This is Fluffy!',
+                photo: 'http://placekitten.com/600/210'
+            },
+            socks: {
+                content: 'This is Socks!',
+                photo: 'http://placekitten.com/600/220'
+            },
+            whiskers: {
+                content: 'This is Whiskers!',
+                photo: 'http://placekitten.com/600/190'
+            },
+            bob: {
+                content: 'This is Bob!',
+                photo: 'http://placekitten.com/600/180'
+            }
+        };
+
+        navItems.forEach(function(navItem) {
+            navItem.addEventListener('click', function(e) {
+                const cat = e.target.getAttribute('href').split('/').pop();
+                const data = cats[cat];
+                updateContent(data);
+
+                // Add an item to the history
+                history.pushState(data, e.target.textContent, e.target.href);
+
+                return e.preventDefault();
+            });
+        });
+
+        function updateContent(data) {
+            if (data == null)
+                return;
+
+            content.textContent = data.content;
+            image.src = data.photo;
+        }
+
+        // Listen for navigation and update content 
+        window.addEventListener('popstate', function(e) {
+            updateContent(e.state);
+        });
+    </script>
+{% endblock %}
