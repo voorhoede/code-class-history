@@ -1,0 +1,78 @@
+{% extends "views/_base/base.html" %}
+
+{% block navigation %}
+	<nav class="cc-navigation">
+		<a href="/" class="cc-back-link">← back to overview</a>
+		<a href="/exercise-1-answer" class="cc-answer-link">see answer →</a>
+	</nav>
+{% endblock %}
+
+{% block introduction %}
+	<h1>Exercise 1</h1>
+
+	<p>Enable the back and forward button functionality. Also make it possible to go to a relative point in history using the input field.</p>
+{% endblock %}
+
+{% block html %}
+	<section class="cc-html-playground">
+		<div class="exercise">
+			<h1>Current history info</h1>
+
+			<p>State: <span data-state-info class="data">-</span></p>
+			<p>Length: <span data-length-info class="data">-</span></p>
+
+			<div class="buttons">
+				<button>Go back</button>
+				<div>
+					<input type="number" value="1">
+					<button>Go</button>
+				</div>
+				<button>Go forward</button>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block styles %}
+	<style type="text/css">
+		.exercise {
+			margin: 2rem auto;
+			padding: 1rem;
+			max-width: 600px;
+			background: #fff;
+		}
+
+		.exercise h1 {
+			margin: 0 0 1rem 0;
+		}
+
+		.exercise .data {
+			font-weight: bold;
+		}
+
+		.exercise .buttons {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.exercise input {
+			padding: .1rem .5rem;
+			width: 50px;
+			line-height: 1.8rem;
+		}
+
+		.exercise button {
+			padding: .1rem .5rem;
+			background-color: #ccc;
+			border: none;
+			line-height: 2rem;
+		}
+	</style>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		document.querySelector('[data-state-info]').textContent = window.history.state ? window.history.state : 'empty';
+		document.querySelector('[data-length-info]').textContent = window.history.length;
+	</script>
+{% endblock %}

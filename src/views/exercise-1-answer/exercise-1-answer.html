@@ -1,0 +1,93 @@
+{% extends "views/_base/base.html" %}
+
+{% block navigation %}
+    <nav class="cc-navigation">
+        <a href="/exercise-1" class="cc-back-link">← back to exercise 1</a>
+    </nav>
+{% endblock %}
+
+{% block introduction %}
+    <h1>Exercise 1 - Answer</h1>
+
+    <p>Use window.history.back() and window.history.forward() to enable the same functionality as the back and forward button of the browser. Use window.history.go(n) to go back or foward n steps in the history.</p>
+{% endblock %}
+
+{% block html %}
+    <section class="cc-html-playground">
+        <div class="exercise">
+            <h1>Current history info</h1>
+
+            <p>State: <span data-state-info class="data">-</span></p>
+            <p>Length: <span data-length-info class="data">-</span></p>
+
+            <div class="buttons">
+                <button data-back-button>Go back</button>
+                <div>
+                    <input data-history-amount type="number" value="1">
+                    <button data-history-amount-button>Go</button>
+                </div>
+                <button data-forward-button>Go forward</button>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <style type="text/css">
+        .exercise {
+            margin: 2rem auto;
+            padding: 1rem;
+            max-width: 600px;
+            background: #fff;
+        }
+
+        .exercise h1 {
+            margin: 0 0 1rem 0;
+        }
+
+        .exercise .data {
+            font-weight: bold;
+        }
+
+        .exercise .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .exercise input {
+            padding: .1rem .5rem;
+            width: 50px;
+            line-height: 1.8rem;
+        }
+
+        .exercise button {
+            padding: .1rem .5rem;
+            background-color: #ccc;
+            border: none;
+            line-height: 2rem;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.querySelector('[data-state-info]').textContent = window.history.state ? window.history.state : 'empty';
+        document.querySelector('[data-length-info]').textContent = window.history.length;
+
+        const backButton = document.querySelector('[data-back-button]');
+        backButton.addEventListener('click', function(e) {
+            window.history.back();
+        });
+
+        const forwardButton = document.querySelector('[data-forward-button]');
+        forwardButton.addEventListener('click', function(e) {
+            window.history.forward();
+        });
+
+        const historyAmountButton = document.querySelector('[data-history-amount-button]');
+        historyAmountButton.addEventListener('click', function(e) {
+            const historyAmount = document.querySelector('[data-history-amount]').value;
+            window.history.go(historyAmount);
+        });
+    </script>
+{% endblock %}

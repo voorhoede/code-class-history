@@ -1,0 +1,34 @@
+{% extends "views/_base/base.html" %}
+
+{% block html %}
+    <section class="cc-html-playground">
+        <a href="/rabbit-hole-3" class="button">Down down down!</a>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <style type="text/css">
+        body {
+            background-image: url('/assets/rabbit-hole-2.gif');
+            background-size: cover;
+        }
+
+        .cc-html-playground {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: transparent;
+            border: none;
+        }
+
+        .button {
+            display: block;
+            padding: .7rem;
+            background-color: #ccc;
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+        }
+    </style>
+{% endblock %}
